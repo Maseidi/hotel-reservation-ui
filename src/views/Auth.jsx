@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import Signup from '../components/Signup'
 import Signin from '../components/Signin'
 
-const authBtn = 'p-2 text-sm rounded-tr-md rounded-tl-md capitalize duration-300 font-bold'
+const authBtn =
+  'p-2 text-sm rounded-tr-md rounded-tl-md capitalize duration-300 font-bold'
 const active = 'text-primary bg-fourth'
 const disable = 'text-fourth bg-primary hover:bg-tertiary hover:text-fourth'
 

@@ -13,7 +13,7 @@ const Input = (params) => {
           id={label}
           type={type}
           placeholder={placeholder}
-          className="text-xs p-1 rounded-tl-xs rounded-bl-xs focus:outline-[lightblue]"
+          className="text-xs p-1 rounded-tl-sm rounded-bl-sm focus:outline-[lightblue] w-80"
           onChange={(e) => {
             change(e, name)
           }}

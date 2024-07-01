@@ -17,7 +17,10 @@ const Signin = () => {
   }
 
   const signin = () => {
-    axios.post(process.env.URL, signinCmd).then(res => console.log(res)).catch(err => console.error(err))
+    axios
+      .post(process.env.URL, signinCmd)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err))
   }
 
   return (
@@ -38,7 +41,10 @@ const Signin = () => {
         change={changeValue}
         name={'username'}
       />
-      <button className="capitalize bg-submit text-primary rounded-sm p-1 hover:brightness-125 text-xs" onClick={signin}>
+      <button
+        className="capitalize bg-submit text-primary rounded-sm p-1 hover:brightness-125 text-xs"
+        onClick={signin}
+      >
         submit
       </button>
     </div>

@@ -19,7 +19,10 @@ const Signup = () => {
   }
 
   const signup = () => {
-    axios.post(process.env.URL, signupCmd).then(res => console.log(res)).catch(err => console.error(err))
+    axios
+      .post(process.env.URL, signupCmd)
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err))
   }
 
   return (
@@ -56,7 +59,10 @@ const Signup = () => {
         change={changeValue}
         name={'passwordRepeat'}
       />
-      <button className="capitalize bg-submit text-primary rounded-sm p-1 hover:brightness-125 text-xs" onClick={signup}>
+      <button
+        className="capitalize bg-submit text-primary rounded-sm p-1 hover:brightness-125 text-xs"
+        onClick={signup}
+      >
         submit
       </button>
     </div>
