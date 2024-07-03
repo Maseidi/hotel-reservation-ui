@@ -3,9 +3,9 @@ import Input from './Input'
 import axios from 'axios'
 
 const validAuthSubmit =
-  'capitalize bg-submit text-primary rounded-sm p-2 hover:brightness-125 text-lg w-max self-end'
+  'capitalize bg-submit text-primary rounded-lg p-2 hover:brightness-125 text-lg w-max self-end'
 const invalidAuthSubmit =
-  'capitalize bg-[gray] text-primary rounded-sm p-2 text-lg w-max self-end'
+  'capitalize bg-[gray] text-primary rounded-lg p-2 text-lg w-max self-end'
 
 const Signup = () => {
   const [signupCmd, setSignupCmd] = useState({
@@ -29,8 +29,12 @@ const Signup = () => {
       .post(process.env.URL + 'api/auth/register', signupCmd)
       .then((res) => console.log(res))
       .catch((err) => {
+        if (err.response.status != 419) {
+          console.log(err)
+          return
+        }
         let errorMap = {}
-        err.response.data.errors.forEach(elem => {
+        err.response.data.errors.forEach((elem) => {
           errorMap[elem.path] = elem.msg
         })
         setErrors(errorMap)
@@ -44,7 +48,7 @@ const Signup = () => {
     signupCmd.password_confirmation == ''
 
   return (
-    <div className="p-5 bg-primary border border-fourth rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
+    <div className="p-8 bg-primary rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
       <Input
         label={'username'}
         type={'text'}
