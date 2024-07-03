@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import Input from './Input'
-import { email, key, lock, user } from '../util/image-urls'
 import axios from 'axios'
 
 const validAuthSubmit =
-  'capitalize bg-submit text-primary rounded-sm p-2 hover:brightness-125 text-xs w-max self-end'
+  'capitalize bg-submit text-primary rounded-sm p-2 hover:brightness-125 text-lg w-max self-end'
 const invalidAuthSubmit =
-  'capitalize bg-[gray] text-primary rounded-sm p-2 text-xs w-max self-end'
+  'capitalize bg-[gray] text-primary rounded-sm p-2 text-lg w-max self-end'
 
 const Signup = () => {
   const [signupCmd, setSignupCmd] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
-    passwordRepeat: ''
+    password_confirmation: ''
   })
+
+  const [errors, setErrors] = useState({})
 
   const changeValue = (e, name) => {
     setSignupCmd({
@@ -25,50 +26,56 @@ const Signup = () => {
 
   const signup = () => {
     axios
-      .post(process.env.URL, signupCmd)
+      .post(process.env.URL + 'api/auth/register', signupCmd)
       .then((res) => console.log(res))
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        let errorMap = {}
+        err.response.data.errors.forEach(elem => {
+          errorMap[elem.path] = elem.msg
+        })
+        setErrors(errorMap)
+      })
   }
 
   const anythingEmpty = () =>
-    signupCmd.username == '' ||
+    signupCmd.name == '' ||
     signupCmd.email == '' ||
     signupCmd.password == '' ||
-    signupCmd.passwordRepeat == ''
+    signupCmd.password_confirmation == ''
 
   return (
     <div className="p-5 bg-primary border border-fourth rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
       <Input
         label={'username'}
         type={'text'}
-        img={user}
         placeholder={'username'}
         change={changeValue}
-        name={'username'}
+        name={'name'}
+        error={errors['name']}
       />
       <Input
         label={'email'}
         type={'email'}
-        img={email}
         placeholder={'email'}
         change={changeValue}
         name={'email'}
+        error={errors['email']}
       />
       <Input
         label={'password'}
         type={'password'}
-        img={key}
         placeholder={'password'}
         change={changeValue}
         name={'password'}
+        error={errors['password']}
       />
       <Input
-        label={'password repeat'}
+        label={'confirm password'}
         type={'password'}
-        img={lock}
-        placeholder={'password repeat'}
+        placeholder={'confirm password'}
         change={changeValue}
-        name={'passwordRepeat'}
+        name={'password_confirmation'}
+        error={errors['password_confirmation']}
       />
       {anythingEmpty() ? (
         <button className={invalidAuthSubmit} disabled>

@@ -4,7 +4,7 @@ import Signin from '../components/Signin'
 import Background from '../components/Background'
 
 const authBtn =
-  'p-2 text-sm rounded-tr-md rounded-tl-md capitalize duration-300 font-bold'
+  'p-2 text-lg rounded-tr-md rounded-tl-md capitalize duration-300 font-bold'
 const disable = 'text-primary bg-fourth border border-primary'
 const active = 'text-fourth bg-primary hover:bg-tertiary hover:text-fourth border border-fourth'
 
@@ -17,7 +17,7 @@ const Auth = () => {
     <>
       <div>
         <Background/>
-        <div className="p-2 absolute left-1/2 md:top-1/2 -translate-x-1/2 md:-translate-y-1/2 top-0">
+        <div className="p-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-row gap-2">
             {signup ? (
               <>
