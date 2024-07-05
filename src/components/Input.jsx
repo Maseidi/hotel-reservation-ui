@@ -1,7 +1,7 @@
 import React from 'react'
 
 const inputStyle =
-  'text-lg p-3 text-s rounded-lg focus:outline-[lightblue] outline-8 w-[30rem] bg-fourth text-primary'
+  'text-lg p-3 text-s rounded-lg focus:outline-[lightblue] w-[32rem] bg-fourth text-primary'
 
 const Input = (params) => {
   const { label, type, placeholder, change, name, error } = params

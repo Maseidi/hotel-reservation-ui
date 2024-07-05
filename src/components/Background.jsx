@@ -12,7 +12,7 @@ const images = new Array(7)
 
 const Background = () => {
   return (
-    <div className="w-full h-[100vh] bg-secondary overflow-hidden blur-sm grayscale-[60%]">
+    <div className="w-full h-[100vh] overflow-hidden blur-sm grayscale-[30%]">
       <div className="w-full h-full grid xl:grid-cols-4 md:grid-cols-3 grid-cols-2 rotate-6 scale-150">
         {[...images, ...images].map((elem) => elem)}
       </div>
