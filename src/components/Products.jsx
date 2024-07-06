@@ -8,42 +8,42 @@ const headerStyles = 'capitalize border-b border-b-black'
 const mock = [
   {
     id: 1,
-    name: 'a',
-    email: 'a@a.com',
-    isAdmin: false,
+    title: 'a',
+    price: 1000,
+    code: 12,
     createdAt: Date.now()
   },
   {
     id: 2,
-    name: 'b',
-    email: 'b@b.com',
-    isAdmin: true,
+    title: 'b',
+    price: 1500,
+    code: 23,
     createdAt: Date.now()
   },
   {
     id: 3,
-    name: 'c',
-    email: 'c@c.com',
-    isAdmin: false,
+    title: 'c',
+    price: 500,
+    code: 34,
     createdAt: Date.now()
   },
   {
     id: 4,
-    name: 'd',
-    email: 'd@d.com',
-    isAdmin: true,
+    title: 'd',
+    price: 3000,
+    code: 37,
     createdAt: Date.now()
   }
 ]
 
-const Users = () => {
+const Products = () => {
   const [page, setPage] = useState(1)
-  const [data, setData] = useState({ users: [] })
+  const [data, setData] = useState({ products: [] })
   const [id2Delete, setId2Delete] = useState(null)
 
   const getData = () => {
     axios
-      .get(process.env.URL + '/admin/users?page=' + page, {
+      .get(process.env.URL + '/admin/products?page=' + page, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -53,7 +53,7 @@ const Users = () => {
       })
       .catch((err) =>
         setData({
-          users: mock
+          products: mock
         })
       )
   }
@@ -76,7 +76,7 @@ const Users = () => {
 
   const deleteById = (id) => {
     axios
-      .delete(process.env.URL + '/admin/users/' + id, {
+      .delete(process.env.URL + '/admin/products/' + id, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -102,17 +102,17 @@ const Users = () => {
       )}
       <div className="ml-10 mt-10 flex flex-col gap-20">
         <div className="grid grid-cols-5 gap-y-6 gap-x-8 h-max text-center">
-          <div className={headerStyles}>username</div>
-          <div className={headerStyles}>email</div>
-          <div className={headerStyles}>role</div>
+          <div className={headerStyles}>title</div>
+          <div className={headerStyles}>price</div>
+          <div className={headerStyles}>code</div>
           <div className={headerStyles}>created date</div>
           <div className={headerStyles}>operations</div>
-          {data.users.map((elem) => {
+          {data.products.map((elem) => {
             return (
               <>
-                <div>{elem.name}</div>
-                <div>{elem.email}</div>
-                <div>{elem.isAdmin ? 'Admin' : 'User'}</div>
+                <div>{elem.title}</div>
+                <div>{elem.price}$</div>
+                <div>{elem.code}</div>
                 <div>{elem.createdAt}</div>
                 <div className="flex justify-between gap-8">
                   <button
@@ -122,13 +122,13 @@ const Users = () => {
                     delete
                   </button>
                   <Link
-                    to={'/admin/users/edit/' + elem.id}
+                    to={'/admin/products/edit/' + elem.id}
                     className="cursor-pointer text-secondary capitalize"
                   >
                     update
                   </Link>
                   <Link
-                    to={'/admin/users/' + elem.id}
+                    to={'/admin/products/' + elem.id}
                     className="text-fourth capitalize"
                   >
                     details
@@ -154,4 +154,4 @@ const Users = () => {
   )
 }
 
-export default Users
+export default Products

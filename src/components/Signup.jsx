@@ -26,8 +26,8 @@ const Signup = () => {
 
   const signup = () => {
     axios
-      .post(process.env.URL + 'api/auth/register', signupCmd)
-      .then((res) => console.log(res))
+      .post(process.env.URL + '/auth/register', signupCmd)
+      .then((res) => localStorage.setItem('token', res.data.token))
       .catch((err) => {
         if (err.response.status != 419) {
           console.log(err)

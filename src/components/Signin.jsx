@@ -24,8 +24,8 @@ const Signin = () => {
 
   const signin = () => {
     axios
-      .post(process.env.URL + 'api/auth/login', signinCmd)
-      .then((res) => console.log(res))
+      .post(process.env.URL + '/auth/login', signinCmd)
+      .then((res) => localStorage.setItem('token', res.data.token))
       .catch((err) => {
         if (err.response.status != 419) {
           console.log(err)

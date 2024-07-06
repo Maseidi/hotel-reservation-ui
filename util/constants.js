@@ -1,4 +1,8 @@
 export const USERS = 'users'
 export const SUBMIT_USER = 'submit user'
+export const UPDATE_USER = 'update user'
+export const SHOW_USER = 'show user'
 export const PRODUCTS = 'products'
 export const SUBMIT_PRODUCT = 'submit product'
+export const UPDATE_PRODUCT = 'update product'
+export const SHOW_PRODUCT = 'show product'
