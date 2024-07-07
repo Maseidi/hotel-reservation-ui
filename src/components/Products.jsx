@@ -100,7 +100,7 @@ const Products = () => {
           callback={deleteById}
         />
       )}
-      <div className="ml-10 mt-10 flex flex-col gap-20">
+      <div className="m-10 flex flex-col gap-20">
         <div className="grid grid-cols-5 gap-y-6 gap-x-8 h-max text-center">
           <div className={headerStyles}>title</div>
           <div className={headerStyles}>price</div>

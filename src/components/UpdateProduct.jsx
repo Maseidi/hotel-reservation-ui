@@ -11,14 +11,7 @@ const invalidAuthSubmit =
 const UpdateProduct = () => {
   const { id } = useParams('id')
 
-  const [updateProductCmd, setUpdateProductCmd] = useState({
-    title: '',
-    slug: '',
-    description: '',
-    price: 0
-  })
-
-  const [product, setProduct] = useState({})
+  const [updateProductCmd, setUpdateProductCmd] = useState({})
 
   const [errors, setErrors] = useState({})
 
@@ -36,13 +29,23 @@ const UpdateProduct = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-      .then((res) => setProduct(res.data))
-      .catch((err) => console.log(err))
+      .then((res) => setUpdateProductCmd({
+        title: res.data.title,
+        slug: res.data.slug,
+        description: res.data.description,
+        price: res.data.price
+      }))
+      .catch((err) => setUpdateProductCmd({
+        title: 'test',
+        slug: 'test',
+        description: 'test',
+        price: 10
+      }))
   }, [])
 
   const updateProduct = () => {
     axios
-      .post(process.env.URL + '/admin/users/' + id, updateProductCmd, {
+      .put(process.env.URL + `/admin/products/${id}`, updateProductCmd, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -68,11 +71,12 @@ const UpdateProduct = () => {
     updateProductCmd.password_confirmation == ''
 
   return (
-    <div className="mt-10 ml-10 flex flex-col gap-8">
+    <div className="m-10 flex flex-col gap-8">
       <h1 className="capitalize text-3xl font-bold">update product</h1>
       <div className="rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
         <Input
           label={'title'}
+          value={updateProductCmd.title}
           type={'text'}
           placeholder={'title'}
           change={changeValue}
@@ -81,6 +85,7 @@ const UpdateProduct = () => {
         />
         <Input
           label={'description'}
+          value={updateProductCmd.description}
           rows={5}
           placeholder={'description'}
           change={changeValue}
@@ -89,6 +94,7 @@ const UpdateProduct = () => {
         />
         <Input
           label={'price'}
+          value={updateProductCmd.price}
           type={'number'}
           placeholder={'price'}
           change={changeValue}
@@ -97,6 +103,7 @@ const UpdateProduct = () => {
         />
         <Input
           label={'slug'}
+          value={updateProductCmd.slug}
           type={'text'}
           placeholder={'slug'}
           change={changeValue}

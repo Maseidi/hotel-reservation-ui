@@ -50,7 +50,7 @@ const SubmitProduct = () => {
     storeProductCmd.description == ''
 
   return (
-    <div className="mt-10 ml-10 flex flex-col gap-8">
+    <div className="m-10 flex flex-col gap-8">
       <h1 className="capitalize text-3xl font-bold">submit product</h1>
       <div className="rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
         <Input

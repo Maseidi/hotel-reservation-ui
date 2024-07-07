@@ -1,16 +1,14 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Auth from './views/Auth'
-import {
-  PRODUCTS,
-  SHOW_PRODUCT,
-  SHOW_USER,
-  SUBMIT_PRODUCT,
-  SUBMIT_USER,
-  UPDATE_PRODUCT,
-  UPDATE_USER,
-  USERS
-} from '../util/constants'
+import Users from './components/Users'
+import UserDetails from './components/UserDetails'
+import SubmitUser from './components/SubmitUser'
+import UpdateUser from './components/UpdateUser'
+import Products from './components/Products'
+import ProductDetails from './components/ProductDetails'
+import SubmitProduct from './components/SubmitProduct'
+import UpdateProduct from './components/UpdateProduct'
 import Admin from './views/Admin'
 
 const App = () => {
@@ -18,36 +16,16 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/auth" element={<Auth />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/admin/users" element={<Admin operation={USERS} />} />
-        <Route
-          path="/admin/users/:id"
-          element={<Admin operation={SHOW_USER} />}
-        />
-        <Route
-          path="/admin/users/submit"
-          element={<Admin operation={SUBMIT_USER} />}
-        />
-        <Route
-          path="/admin/users/edit/:id"
-          element={<Admin operation={UPDATE_USER} />}
-        />
-        <Route
-          path="/admin/products"
-          element={<Admin operation={PRODUCTS} />}
-        />
-        <Route
-          path="/admin/products/:id"
-          element={<Admin operation={SHOW_PRODUCT} />}
-        />
-        <Route
-          path="/admin/products/submit"
-          element={<Admin operation={SUBMIT_PRODUCT} />}
-        />
-        <Route
-          path="/admin/products/edit/:id"
-          element={<Admin operation={UPDATE_PRODUCT} />}
-        />
+        <Route path="/admin" element={<Admin />}>
+          <Route path="users" element={<Users />} />
+          <Route path="users/:id" element={<UserDetails />} />
+          <Route path="users/submit" element={<SubmitUser />} />
+          <Route path="users/edit/:id" element={<UpdateUser />} />
+          <Route path="products" element={<Products />} />
+          <Route path="products/:id" element={<ProductDetails />} />
+          <Route path="products/submit" element={<SubmitProduct />} />
+          <Route path="products/edit/:id" element={<UpdateProduct />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
