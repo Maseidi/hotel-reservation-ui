@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 const inputStyle =
   'text-lg p-3 text-s rounded-lg focus:outline-[lightblue] w-[32rem] bg-fourth text-primary'
 
-const Input = (params) => {
+const Input = forwardRef(function Input(params, ref) {
   const { label, value, type, placeholder, change, name, error, rows = 0 } = params
 
   return (
@@ -17,6 +17,7 @@ const Input = (params) => {
             rows={rows}
             placeholder={placeholder}
             value={value}
+            ref={ref}
             className={
               error ? inputStyle + ' border border-red-500' : inputStyle
             }
@@ -28,6 +29,7 @@ const Input = (params) => {
             type={type}
             placeholder={placeholder}
             value={value}
+            ref={ref}
             className={
               error ? inputStyle + ' border border-red-500' : inputStyle
             }
@@ -37,6 +39,6 @@ const Input = (params) => {
       {error && <p className="text-red-500">{error}</p>}
     </div>
   )
-}
+})
 
 export default Input

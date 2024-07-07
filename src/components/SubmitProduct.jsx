@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Input from './Input'
+import axios from 'axios'
 
 const validAuthSubmit =
   'capitalize bg-submit text-primary rounded-lg p-2 hover:brightness-125 text-lg w-max self-end'
@@ -11,13 +12,28 @@ const SubmitProduct = () => {
     title: '',
     price: 0,
     description: '',
-    slug: ''
+    slug: '',
+    img: ''
   })
 
   const [errors, setErrors] = useState({})
+  const fileRef = useRef(null)
+
+  const handleFileChange = () => {
+    const data = new FormData()
+    data.append('file', fileRef.current.files[0])
+    setStoreProductCmd({
+      ...storeProductCmd,
+      'img': data
+    })
+  }
 
   const changeValue = (e, name) => {
     if (name == 'price') if (e.target.value < 0) return
+    if ( name == 'img' ) {
+      handleFileChange()
+      return
+    }
     setStoreProductCmd({
       ...storeProductCmd,
       [name]: e.target.value
@@ -89,6 +105,16 @@ const SubmitProduct = () => {
           change={changeValue}
           name={'slug'}
           error={errors['slug']}
+        />
+        <Input
+          label={'picture'}
+          value={storeProductCmd.img.name}
+          type={'file'}
+          placeholder={'select picture'}
+          change={changeValue}
+          name={'img'}
+          error={errors['img']}
+          ref={fileRef}
         />
         {anythingEmpty() ? (
           <button className={invalidAuthSubmit} disabled>
