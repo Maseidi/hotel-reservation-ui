@@ -44,7 +44,7 @@ const ProductDetails = () => {
           <span className="capitalize font-bold">slug</span>
           <span>{product.slug}</span>
           <span className="capitalize font-bold">description</span>
-          <span>{product.description}</span>
+          <span className='w-[40ch]'>{product.description}</span>
           <span className="capitalize font-bold">price</span>
           <span>{product.price}$</span>
           <span className="capitalize font-bold">code</span>

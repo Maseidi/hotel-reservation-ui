@@ -41,14 +41,14 @@ const UserDetails = () => {
           <span>{user.name}</span>
           <span className="capitalize font-bold">email</span>
           <span>{user.email}</span>
-          <span className="capitalize font-bold">age</span>
-          <span>{user.age}</span>
+          {/* <span className="capitalize font-bold">age</span> */}
+          {/* <span>{user.age}</span> */}
           <span className="capitalize font-bold">role</span>
           <span>{user.isAdmin ? 'Admin' : 'User'}</span>
           <span className="capitalize font-bold">created</span>
           <span>{formatDate(user.createdAt)}</span>
-          <span className="capitalize font-bold">last modified</span>
-          <span>{formatDate(user.updatedAt)}</span>
+          {/* <span className="capitalize font-bold">last modified</span> */}
+          {/* <span>{formatDate(user.updatedAt)}</span> */}
         </div>
       </div>
     </>

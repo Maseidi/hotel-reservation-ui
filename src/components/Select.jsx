@@ -13,7 +13,7 @@ const Select = (params) => {
       </label>
       <select
         value={value}
-        onChange={() => change(e, name)}
+        onChange={(e) => change(e, name)}
         className={error ? inputStyle + ' border border-red-500' : inputStyle}
       >
         {values.map((elem, index) => {

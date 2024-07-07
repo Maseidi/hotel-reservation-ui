@@ -35,6 +35,7 @@ const UpdateUser = () => {
         setUpdateUserCmd({
           name: res.data.name,
           email: res.data.email,
+          password: res.data.password,
           age: res.data.age,
           isAdmin: res.data.isAdmin
         })
@@ -43,6 +44,8 @@ const UpdateUser = () => {
         setUpdateUserCmd({
           name: 'test',
           email: 'test',
+          password: '',
+          password_confirmation: '',
           age: 20,
           isAdmin: true
         })
@@ -58,7 +61,7 @@ const UpdateUser = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-      .then((res) => console.log(res))
+      .then((res) => setErrors({}))
       .catch((err) => {
         if (err.response.status != 419) {
           console.log(err)
@@ -102,6 +105,24 @@ const UpdateUser = () => {
             change={changeValue}
             name={'email'}
             error={errors['email']}
+          />
+          <Input
+            label={'password'}
+            value={updateUserCmd.password}
+            type={'password'}
+            placeholder={'password'}
+            change={changeValue}
+            name={'password'}
+            error={errors['password']}
+          />
+          <Input
+            label={'confirm password'}
+            value={updateUserCmd.password_confirmation}
+            type={'password'}
+            placeholder={'confirm password'}
+            change={changeValue}
+            name={'password_confirmation'}
+            error={errors['password_confirmation']}
           />
           <Input
             label={'age'}

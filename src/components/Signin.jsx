@@ -9,7 +9,7 @@ const invalidAuthSubmit =
 
 const Signin = () => {
   const [signinCmd, setSigninCmd] = useState({
-    name: '',
+    email: '',
     password: ''
   })
   const [errors, setErrors] = useState({})
@@ -24,7 +24,10 @@ const Signin = () => {
   const signin = () => {
     axios
       .post(process.env.URL + '/auth/login', signinCmd)
-      .then((res) => localStorage.setItem('token', res.data.token))
+      .then((res) => {
+        localStorage.setItem('token', res.data.token)
+        setErrors({})
+      })
       .catch((err) => {
         if (err.response.status != 419) {
           console.log(err)
@@ -38,17 +41,17 @@ const Signin = () => {
       })
   }
 
-  const anythingEmpty = () => signinCmd.name == '' || signinCmd.password == ''
+  const anythingEmpty = () => signinCmd.email == '' || signinCmd.password == ''
 
   return (
     <div className="p-8 bg-primary rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-5">
       <Input
-        label={'username'}
-        type={'text'}
-        placeholder={'username'}
+        label={'email'}
+        type={'email'}
+        placeholder={'email'}
         change={changeValue}
-        name={'name'}
-        error={errors['name']}
+        name={'email'}
+        error={errors['email']}
       />
       <Input
         label={'password'}

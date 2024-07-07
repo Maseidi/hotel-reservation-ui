@@ -33,7 +33,7 @@ const SubmitUser = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-      .then((res) => console.log(res))
+      .then((res) => setErrors({}))
       .catch((err) => {
         console.log(err)
         if (err.response.status != 419) return

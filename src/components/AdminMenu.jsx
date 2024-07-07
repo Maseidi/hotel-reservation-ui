@@ -3,7 +3,7 @@ import OptionGroup from './OptionGroup'
 
 const AdminMenu = () => {
   return (
-    <div className="w-72 h-[100vh] bg-fourth text-primary flex flex-col p-4 gap-10 fixed">
+    <div className="w-52 h-[100vh] bg-fourth text-primary flex flex-col p-4 gap-10 fixed">
       <OptionGroup
         heading={'users'}
         options={['view users', 'submit user']}

@@ -66,18 +66,14 @@ const Products = () => {
   const nextPage = () => {
     if (page == data.totalPages) return
     setPage(page + 1)
-    getData()
   }
 
   const previousPage = () => {
     if (page == 1) return
     setPage(page - 1)
-    getData()
   }
 
-  useEffect(() => {
-    getData()
-  }, [])
+  useEffect(() => getData(), [page])
 
   const deleteById = (id) => {
     setLoading(true)
@@ -126,18 +122,18 @@ const Products = () => {
                 <div className="flex justify-between gap-8">
                   <button
                     className="cursor-pointer text-red-500 capitalize"
-                    onClick={() => setId2Delete(elem.id)}
+                    onClick={() => setId2Delete(elem._id)}
                   >
                     delete
                   </button>
                   <Link
-                    to={'/admin/products/edit/' + elem.id}
+                    to={'/admin/products/edit/' + elem._id}
                     className="cursor-pointer text-secondary capitalize"
                   >
                     update
                   </Link>
                   <Link
-                    to={'/admin/products/' + elem.id}
+                    to={'/admin/products/' + elem._id}
                     className="text-fourth capitalize"
                   >
                     details
