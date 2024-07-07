@@ -9,7 +9,7 @@ const invalidAuthSubmit =
 const SubmitProduct = () => {
   const [storeProductCmd, setStoreProductCmd] = useState({
     title: '',
-    price: '',
+    price: 0,
     description: '',
     slug: ''
   })
@@ -17,6 +17,7 @@ const SubmitProduct = () => {
   const [errors, setErrors] = useState({})
 
   const changeValue = (e, name) => {
+    if (name == 'price') if (e.target.value < 0) return
     setStoreProductCmd({
       ...storeProductCmd,
       [name]: e.target.value
@@ -55,6 +56,7 @@ const SubmitProduct = () => {
       <div className="rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
         <Input
           label={'title'}
+          value={storeProductCmd.title}
           type={'text'}
           placeholder={'title'}
           change={changeValue}
@@ -63,6 +65,7 @@ const SubmitProduct = () => {
         />
         <Input
           label={'price'}
+          value={storeProductCmd.price}
           type={'number'}
           placeholder={'price'}
           change={changeValue}
@@ -71,6 +74,7 @@ const SubmitProduct = () => {
         />
         <Input
           label={'description'}
+          value={storeProductCmd.description}
           rows={5}
           placeholder={'description'}
           change={changeValue}
@@ -79,6 +83,7 @@ const SubmitProduct = () => {
         />
         <Input
           label={'slug (optional)'}
+          value={storeProductCmd.slug}
           type={'text'}
           placeholder={'slug'}
           change={changeValue}

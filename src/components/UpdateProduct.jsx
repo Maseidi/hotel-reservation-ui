@@ -16,6 +16,7 @@ const UpdateProduct = () => {
   const [errors, setErrors] = useState({})
 
   const changeValue = (e, name) => {
+    if (name == 'price') if (e.target.value < 0) return
     setUpdateProductCmd({
       ...updateProductCmd,
       [name]: e.target.value
@@ -29,18 +30,22 @@ const UpdateProduct = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-      .then((res) => setUpdateProductCmd({
-        title: res.data.title,
-        slug: res.data.slug,
-        description: res.data.description,
-        price: res.data.price
-      }))
-      .catch((err) => setUpdateProductCmd({
-        title: 'test',
-        slug: 'test',
-        description: 'test',
-        price: 10
-      }))
+      .then((res) =>
+        setUpdateProductCmd({
+          title: res.data.title,
+          slug: res.data.slug,
+          description: res.data.description,
+          price: res.data.price
+        })
+      )
+      .catch((err) =>
+        setUpdateProductCmd({
+          title: 'test',
+          slug: 'test',
+          description: 'test',
+          price: 10
+        })
+      )
   }, [])
 
   const updateProduct = () => {

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { formatDate } from '../../util/helper'
 
 const UserDetails = () => {
   const { id } = useParams('id')
@@ -15,7 +16,16 @@ const UserDetails = () => {
         }
       })
       .then((res) => setUser(res.data))
-      .catch((err) => console.log(err))
+      .catch((err) =>
+        setUser({
+          name: 'test',
+          email: 'test@test.com',
+          age: 20,
+          isAdmin: false,
+          createdAt: Date.now() - 10000000000,
+          updatedAt: Date.now()
+        })
+      )
   }, [])
 
   return (
@@ -31,9 +41,9 @@ const UserDetails = () => {
         <span className="capitalize font-bold">role</span>
         <span>{user.isAdmin ? 'Admin' : 'User'}</span>
         <span className="capitalize font-bold">created</span>
-        <span>{user.createdAt}</span>
+        <span>{formatDate(user.createdAt)}</span>
         <span className="capitalize font-bold">last modified</span>
-        <span>{user.updatedAt}</span>
+        <span>{formatDate(user.updatedAt)}</span>
       </div>
     </div>
   )

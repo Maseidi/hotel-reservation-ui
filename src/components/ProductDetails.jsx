@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { formatDate } from '../../util/helper'
 
 const ProductDetails = () => {
   const { id } = useParams('id')
@@ -11,11 +12,22 @@ const ProductDetails = () => {
     axios
       .get(process.env.URL + `/admin/products/${id}`, {
         headers: {
-            "Authorization" : `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
       .then((res) => setProduct(res.data))
-      .catch((err) => console.log(err))
+      .catch((err) =>
+        setProduct({
+          title: 'test',
+          slug: 'test',
+          description:
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit recusandae officia totam aliquam eius! Possimus repudiandae expedita, eligendi quaerat quidem ipsa illum impedit, voluptatum fugit fugiat, quae quam reprehenderit reiciendis!',
+          price: 1000,
+          code: Math.floor(Math.random() * 100000),
+          createdAt: Date.now() - 10000000000,
+          updatedAt: Date.now()
+        })
+      )
   }, [])
 
   return (
@@ -29,13 +41,13 @@ const ProductDetails = () => {
         <span className="capitalize font-bold">description</span>
         <span>{product.description}</span>
         <span className="capitalize font-bold">price</span>
-        <span>{product.price}</span>
+        <span>{product.price}$</span>
         <span className="capitalize font-bold">code</span>
         <span>{product.code}</span>
         <span className="capitalize font-bold">created</span>
-        <span>{product.createdAt}</span>
+        <span>{formatDate(product.createdAt)}</span>
         <span className="capitalize font-bold">last modified</span>
-        <span>{product.updatedAt}</span>
+        <span>{formatDate(product.updatedAt)}</span>
       </div>
     </div>
   )

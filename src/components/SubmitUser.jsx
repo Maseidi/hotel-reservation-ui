@@ -54,6 +54,7 @@ const SubmitUser = () => {
       <div className="rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
         <Input
           label={'username'}
+          value={storeUserCmd.name}
           type={'text'}
           placeholder={'username'}
           change={changeValue}
@@ -62,6 +63,7 @@ const SubmitUser = () => {
         />
         <Input
           label={'email'}
+          value={storeUserCmd.email}
           type={'email'}
           placeholder={'email'}
           change={changeValue}
@@ -70,6 +72,7 @@ const SubmitUser = () => {
         />
         <Input
           label={'password'}
+          value={storeUserCmd.password}
           type={'password'}
           placeholder={'password'}
           change={changeValue}
@@ -78,6 +81,7 @@ const SubmitUser = () => {
         />
         <Input
           label={'confirm password'}
+          value={storeUserCmd.password_confirmation}
           type={'password'}
           placeholder={'confirm password'}
           change={changeValue}

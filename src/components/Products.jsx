@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import DeletePopup from './DeletePopup'
 import { Link } from 'react-router-dom'
+import { formatDate } from '../../util/helper'
 
 const headerStyles = 'capitalize border-b border-b-black'
 
@@ -113,7 +114,7 @@ const Products = () => {
                 <div>{elem.title}</div>
                 <div>{elem.price}$</div>
                 <div>{elem.code}</div>
-                <div>{elem.createdAt}</div>
+                <div>{formatDate(elem.createdAt)}</div>
                 <div className="flex justify-between gap-8">
                   <button
                     className="cursor-pointer text-red-500 capitalize"

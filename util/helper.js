@@ -1,0 +1,1 @@
+export const formatDate = (input) => new Date(input).toLocaleDateString()
