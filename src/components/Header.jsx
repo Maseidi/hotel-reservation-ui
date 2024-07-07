@@ -13,17 +13,17 @@ const Header = () => {
         <div className="flex h-full gap-8">
           <div className="flex gap-8 items-center h-full">
             <nav className="h-full flex gap-8 items-center capitalize">
-              <ul className='hover:border-b border-b-black'>
+              <ul className="hover:border-b border-b-black">
                 <li>
                   <Link to={'/hotels'}>shop</Link>
                 </li>
               </ul>
-              <ul className='hover:border-b border-b-black'>
+              <ul className="hover:border-b border-b-black">
                 <li>
                   <Link to={'/hotels'}>blog</Link>
                 </li>
               </ul>
-              <ul className='hover:border-b border-b-black'>
+              <ul className="hover:border-b border-b-black">
                 <li>
                   <Link to={'/hotels'}>our story</Link>
                 </li>

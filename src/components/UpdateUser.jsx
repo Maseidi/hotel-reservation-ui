@@ -38,12 +38,14 @@ const UpdateUser = () => {
           isAdmin: res.data.isAdmin
         })
       })
-      .catch((err) => setUpdateUserCmd({
-        name: 'test',
-        email: 'test',
-        age: 20,
-        isAdmin: true
-      }))
+      .catch((err) =>
+        setUpdateUserCmd({
+          name: 'test',
+          email: 'test',
+          age: 20,
+          isAdmin: true
+        })
+      )
   }, [])
 
   const updateUser = () => {

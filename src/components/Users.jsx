@@ -99,6 +99,7 @@ const Users = () => {
           id={id2Delete}
           setId={setId2Delete}
           callback={deleteById}
+          entity={'user'}
         />
       )}
       <div className="m-10 flex flex-col gap-20">

@@ -24,13 +24,13 @@ const SubmitProduct = () => {
     data.append('file', fileRef.current.files[0])
     setStoreProductCmd({
       ...storeProductCmd,
-      'img': data
+      img: data
     })
   }
 
   const changeValue = (e, name) => {
     if (name == 'price') if (e.target.value < 0) return
-    if ( name == 'img' ) {
+    if (name == 'img') {
       handleFileChange()
       return
     }

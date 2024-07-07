@@ -99,6 +99,7 @@ const Products = () => {
           id={id2Delete}
           setId={setId2Delete}
           callback={deleteById}
+          entity={'product'}
         />
       )}
       <div className="m-10 flex flex-col gap-20">
