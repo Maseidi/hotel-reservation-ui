@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import DeletePopup from './DeletePopup'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../util/helper'
+import Loading from './Loading'
 
 const headerStyles = 'capitalize border-b border-b-black'
 
@@ -41,8 +42,10 @@ const Users = () => {
   const [page, setPage] = useState(1)
   const [data, setData] = useState({ users: [] })
   const [id2Delete, setId2Delete] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const getData = () => {
+    setLoading(true)
     axios
       .get(process.env.URL + '/admin/users?page=' + page, {
         headers: {
@@ -52,11 +55,12 @@ const Users = () => {
       .then((res) => {
         setData(res.data)
       })
-      .catch((err) =>
+      .catch((err) => {
         setData({
           users: mock
         })
-      )
+      })
+      .finally((fin) => setLoading(false))
   }
 
   const nextPage = () => {
@@ -76,6 +80,7 @@ const Users = () => {
   }, [])
 
   const deleteById = (id) => {
+    setLoading(true)
     axios
       .delete(process.env.URL + '/admin/users/' + id, {
         headers: {
@@ -90,6 +95,7 @@ const Users = () => {
       .catch((err) => {
         console.log(err)
       })
+      .finally(() => setLoading(false))
   }
 
   return (
@@ -102,6 +108,7 @@ const Users = () => {
           entity={'user'}
         />
       )}
+      {loading && <Loading />}
       <div className="m-10 flex flex-col gap-20">
         <div className="grid grid-cols-5 gap-y-6 gap-x-8 h-max text-center">
           <div className={headerStyles}>username</div>

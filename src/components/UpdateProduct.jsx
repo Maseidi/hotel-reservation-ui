@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Input from './Input'
 import axios from 'axios'
+import Loading from './Loading'
 
 const validAuthSubmit =
   'capitalize bg-submit text-primary rounded-lg p-2 hover:brightness-125 text-lg w-max self-end'
@@ -10,10 +11,9 @@ const invalidAuthSubmit =
 
 const UpdateProduct = () => {
   const { id } = useParams('id')
-
   const [updateProductCmd, setUpdateProductCmd] = useState({})
-
   const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
   const changeValue = (e, name) => {
     if (name == 'price') if (e.target.value < 0) return
@@ -24,6 +24,7 @@ const UpdateProduct = () => {
   }
 
   useEffect(() => {
+    setLoading(true)
     axios
       .get(process.env.URL + `/admin/products/${id}`, {
         headers: {
@@ -46,9 +47,11 @@ const UpdateProduct = () => {
           price: 10
         })
       )
+      .finally(() => setLoading(false))
   }, [])
 
   const updateProduct = () => {
+    setLoading(true)
     axios
       .put(process.env.URL + `/admin/products/${id}`, updateProductCmd, {
         headers: {
@@ -67,6 +70,7 @@ const UpdateProduct = () => {
         })
         setErrors(errorMap)
       })
+      .finally(() => setLoading(false))
   }
 
   const anythingEmpty = () =>
@@ -76,56 +80,59 @@ const UpdateProduct = () => {
     updateProductCmd.password_confirmation == ''
 
   return (
-    <div className="m-10 flex flex-col gap-8">
-      <h1 className="capitalize text-3xl font-bold">update product</h1>
-      <div className="rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
-        <Input
-          label={'title'}
-          value={updateProductCmd.title}
-          type={'text'}
-          placeholder={'title'}
-          change={changeValue}
-          name={'title'}
-          error={errors['title']}
-        />
-        <Input
-          label={'description'}
-          value={updateProductCmd.description}
-          rows={5}
-          placeholder={'description'}
-          change={changeValue}
-          name={'description'}
-          error={errors['description']}
-        />
-        <Input
-          label={'price'}
-          value={updateProductCmd.price}
-          type={'number'}
-          placeholder={'price'}
-          change={changeValue}
-          name={'price'}
-          error={errors['price']}
-        />
-        <Input
-          label={'slug'}
-          value={updateProductCmd.slug}
-          type={'text'}
-          placeholder={'slug'}
-          change={changeValue}
-          name={'slug'}
-          error={errors['slug']}
-        />
-        {anythingEmpty() ? (
-          <button className={invalidAuthSubmit} disabled>
-            submit
-          </button>
-        ) : (
-          <button className={validAuthSubmit} onClick={updateProduct}>
-            submit
-          </button>
-        )}
+    <>
+      {loading && <Loading />}
+      <div className="m-10 flex flex-col gap-8">
+        <h1 className="capitalize text-3xl font-bold">update product</h1>
+        <div className="rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
+          <Input
+            label={'title'}
+            value={updateProductCmd.title}
+            type={'text'}
+            placeholder={'title'}
+            change={changeValue}
+            name={'title'}
+            error={errors['title']}
+          />
+          <Input
+            label={'description'}
+            value={updateProductCmd.description}
+            rows={5}
+            placeholder={'description'}
+            change={changeValue}
+            name={'description'}
+            error={errors['description']}
+          />
+          <Input
+            label={'price'}
+            value={updateProductCmd.price}
+            type={'number'}
+            placeholder={'price'}
+            change={changeValue}
+            name={'price'}
+            error={errors['price']}
+          />
+          <Input
+            label={'slug'}
+            value={updateProductCmd.slug}
+            type={'text'}
+            placeholder={'slug'}
+            change={changeValue}
+            name={'slug'}
+            error={errors['slug']}
+          />
+          {anythingEmpty() ? (
+            <button className={invalidAuthSubmit} disabled>
+              submit
+            </button>
+          ) : (
+            <button className={validAuthSubmit} onClick={updateProduct}>
+              submit
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

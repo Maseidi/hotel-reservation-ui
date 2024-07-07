@@ -2,13 +2,15 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { formatDate } from '../../util/helper'
+import Loading from './Loading'
 
 const ProductDetails = () => {
   const { id } = useParams('id')
-
   const [product, setProduct] = useState({})
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     axios
       .get(process.env.URL + `/admin/products/${id}`, {
         headers: {
@@ -28,28 +30,32 @@ const ProductDetails = () => {
           updatedAt: Date.now()
         })
       )
+      .finally(() => setLoading(false))
   }, [])
 
   return (
-    <div className="m-10 flex flex-col gap-8">
-      <h1 className="capitalize text-3xl font-bold">product details</h1>
-      <div className="grid grid-cols-2 h-max justify-between w-[50rem] gap-8">
-        <span className="capitalize font-bold">title</span>
-        <span>{product.title}</span>
-        <span className="capitalize font-bold">slug</span>
-        <span>{product.slug}</span>
-        <span className="capitalize font-bold">description</span>
-        <span>{product.description}</span>
-        <span className="capitalize font-bold">price</span>
-        <span>{product.price}$</span>
-        <span className="capitalize font-bold">code</span>
-        <span>{product.code}</span>
-        <span className="capitalize font-bold">created</span>
-        <span>{formatDate(product.createdAt)}</span>
-        <span className="capitalize font-bold">last modified</span>
-        <span>{formatDate(product.updatedAt)}</span>
+    <>
+      {loading && <Loading />}
+      <div className="m-10 flex flex-col gap-8">
+        <h1 className="capitalize text-3xl font-bold">product details</h1>
+        <div className="grid grid-cols-2 h-max justify-between w-[50rem] gap-8">
+          <span className="capitalize font-bold">title</span>
+          <span>{product.title}</span>
+          <span className="capitalize font-bold">slug</span>
+          <span>{product.slug}</span>
+          <span className="capitalize font-bold">description</span>
+          <span>{product.description}</span>
+          <span className="capitalize font-bold">price</span>
+          <span>{product.price}$</span>
+          <span className="capitalize font-bold">code</span>
+          <span>{product.code}</span>
+          <span className="capitalize font-bold">created</span>
+          <span>{formatDate(product.createdAt)}</span>
+          <span className="capitalize font-bold">last modified</span>
+          <span>{formatDate(product.updatedAt)}</span>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -6,7 +6,6 @@ const bottom = '/src/assets/images/bottom.png'
 
 const OptionGroup = (params) => {
   const { heading, options, urls } = params
-
   const [open, setOpen] = useState(false)
 
   return (

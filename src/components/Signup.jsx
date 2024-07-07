@@ -14,7 +14,6 @@ const Signup = () => {
     password: '',
     password_confirmation: ''
   })
-
   const [errors, setErrors] = useState({})
 
   const changeValue = (e, name) => {

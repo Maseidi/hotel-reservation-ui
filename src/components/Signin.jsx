@@ -12,9 +12,8 @@ const Signin = () => {
     name: '',
     password: ''
   })
-
   const [errors, setErrors] = useState({})
-
+  
   const changeValue = (e, name) => {
     setSigninCmd({
       ...signinCmd,

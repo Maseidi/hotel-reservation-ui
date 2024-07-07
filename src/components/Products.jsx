@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import DeletePopup from './DeletePopup'
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../util/helper'
+import Loading from './Loading'
 
 const headerStyles = 'capitalize border-b border-b-black'
 
@@ -41,8 +42,10 @@ const Products = () => {
   const [page, setPage] = useState(1)
   const [data, setData] = useState({ products: [] })
   const [id2Delete, setId2Delete] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const getData = () => {
+    setLoading(true)
     axios
       .get(process.env.URL + '/admin/products?page=' + page, {
         headers: {
@@ -57,6 +60,7 @@ const Products = () => {
           products: mock
         })
       )
+      .finally(() => setLoading(false))
   }
 
   const nextPage = () => {
@@ -76,6 +80,7 @@ const Products = () => {
   }, [])
 
   const deleteById = (id) => {
+    setLoading(true)
     axios
       .delete(process.env.URL + '/admin/products/' + id, {
         headers: {
@@ -90,10 +95,12 @@ const Products = () => {
       .catch((err) => {
         console.log(err)
       })
+      .finally(() => setLoading(false))
   }
 
   return (
     <>
+      {loading && <Loading />}
       {id2Delete && (
         <DeletePopup
           id={id2Delete}

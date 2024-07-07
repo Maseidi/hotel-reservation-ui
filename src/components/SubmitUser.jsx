@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Input from './Input'
+import axios from 'axios'
+import Loading from './Loading'
 
 const validAuthSubmit =
   'capitalize bg-submit text-primary rounded-lg p-2 hover:brightness-125 text-lg w-max self-end'
@@ -13,8 +15,8 @@ const SubmitUser = () => {
     password: '',
     password_confirmation: ''
   })
-
   const [errors, setErrors] = useState({})
+  const [loading, setLoading] = useState(false)
 
   const changeValue = (e, name) => {
     setStoreUserCmd({
@@ -24,6 +26,7 @@ const SubmitUser = () => {
   }
 
   const storeUser = () => {
+    setLoading(true)
     axios
       .post(process.env.URL + '/admin/users', storeUserCmd, {
         headers: {
@@ -40,6 +43,7 @@ const SubmitUser = () => {
         })
         setErrors(errorMap)
       })
+      .finally(() => setLoading(false))
   }
 
   const anythingEmpty = () =>
@@ -49,56 +53,59 @@ const SubmitUser = () => {
     storeUserCmd.password_confirmation == ''
 
   return (
-    <div className="m-10 flex flex-col gap-8">
-      <h1 className="capitalize text-3xl font-bold">submit user</h1>
-      <div className="rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
-        <Input
-          label={'username'}
-          value={storeUserCmd.name}
-          type={'text'}
-          placeholder={'username'}
-          change={changeValue}
-          name={'name'}
-          error={errors['name']}
-        />
-        <Input
-          label={'email'}
-          value={storeUserCmd.email}
-          type={'email'}
-          placeholder={'email'}
-          change={changeValue}
-          name={'email'}
-          error={errors['email']}
-        />
-        <Input
-          label={'password'}
-          value={storeUserCmd.password}
-          type={'password'}
-          placeholder={'password'}
-          change={changeValue}
-          name={'password'}
-          error={errors['password']}
-        />
-        <Input
-          label={'confirm password'}
-          value={storeUserCmd.password_confirmation}
-          type={'password'}
-          placeholder={'confirm password'}
-          change={changeValue}
-          name={'password_confirmation'}
-          error={errors['password_confirmation']}
-        />
-        {anythingEmpty() ? (
-          <button className={invalidAuthSubmit} disabled>
-            submit
-          </button>
-        ) : (
-          <button className={validAuthSubmit} onClick={storeUser}>
-            submit
-          </button>
-        )}
+    <>
+      {loading && <Loading />}
+      <div className="m-10 flex flex-col gap-8">
+        <h1 className="capitalize text-3xl font-bold">submit user</h1>
+        <div className="rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-4 relative">
+          <Input
+            label={'username'}
+            value={storeUserCmd.name}
+            type={'text'}
+            placeholder={'username'}
+            change={changeValue}
+            name={'name'}
+            error={errors['name']}
+          />
+          <Input
+            label={'email'}
+            value={storeUserCmd.email}
+            type={'email'}
+            placeholder={'email'}
+            change={changeValue}
+            name={'email'}
+            error={errors['email']}
+          />
+          <Input
+            label={'password'}
+            value={storeUserCmd.password}
+            type={'password'}
+            placeholder={'password'}
+            change={changeValue}
+            name={'password'}
+            error={errors['password']}
+          />
+          <Input
+            label={'confirm password'}
+            value={storeUserCmd.password_confirmation}
+            type={'password'}
+            placeholder={'confirm password'}
+            change={changeValue}
+            name={'password_confirmation'}
+            error={errors['password_confirmation']}
+          />
+          {anythingEmpty() ? (
+            <button className={invalidAuthSubmit} disabled>
+              submit
+            </button>
+          ) : (
+            <button className={validAuthSubmit} onClick={storeUser}>
+              submit
+            </button>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
