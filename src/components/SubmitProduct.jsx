@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import Input from './Input'
 import axios from 'axios'
 import Loading from './Loading'
+import Select from './Select'
 
 const validAuthSubmit =
   'capitalize bg-submit text-primary rounded-lg p-2 hover:brightness-125 text-lg w-max self-end'
@@ -14,27 +15,14 @@ const SubmitProduct = () => {
     price: 0,
     description: '',
     slug: '',
-    img: ''
+    kind: ''
   })
+  const [file, setFile] = useState(null)
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
-  const fileRef = useRef(null)
-
-  const handleFileChange = () => {
-    const data = new FormData()
-    data.append('file', fileRef.current.files[0])
-    setStoreProductCmd({
-      ...storeProductCmd,
-      img: data
-    })
-  }
 
   const changeValue = (e, name) => {
     if (name == 'price') if (e.target.value < 0) return
-    if (name == 'img') {
-      handleFileChange()
-      return
-    }
     setStoreProductCmd({
       ...storeProductCmd,
       [name]: e.target.value
@@ -43,8 +31,13 @@ const SubmitProduct = () => {
 
   const storeUser = () => {
     setLoading(true)
+    file.append('title', storeProductCmd.title)
+    file.append('price', storeProductCmd.description)
+    file.append('slug', storeProductCmd.slug)
+    file.append('kind', storeProductCmd.kind)
+    file.append('description', storeProductCmd.description)
     axios
-      .post(process.env.URL + '/admin/products', storeProductCmd, {
+      .post(process.env.URL + '/admin/products', file, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
@@ -82,6 +75,15 @@ const SubmitProduct = () => {
             name={'title'}
             error={errors['title']}
           />
+          <Select
+            label={'kind'}
+            value={storeProductCmd.kind}
+            change={changeValue}
+            name={'kind'}
+            error={errors['kind']}
+            values={['1 room', '2 room', '3 room']}
+            options={['1 room', '2 room', '3 room']}
+          />
           <Input
             label={'price'}
             value={storeProductCmd.price}
@@ -111,13 +113,16 @@ const SubmitProduct = () => {
           />
           <Input
             label={'picture'}
-            value={storeProductCmd.img.name}
+            value={file?.name || ''}
             type={'file'}
             placeholder={'select picture'}
-            change={changeValue}
-            name={'img'}
-            error={errors['img']}
-            ref={fileRef}
+            change={(e) => {
+              const data = new FormData()
+              data.append('file', e.target.files[0])
+              setFile(data)
+            }}
+            name={'file'}
+            error={errors['file']}
           />
           {anythingEmpty() ? (
             <button className={invalidAuthSubmit} disabled>

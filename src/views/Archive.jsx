@@ -1,10 +1,12 @@
 import React from 'react'
 import Header from '../components/Header'
+import SearchProduct from '../components/SearchProduct'
 
 const Archive = () => {
-  return <div>
+  return <>
     <Header/>
-  </div>
+    <SearchProduct/>
+  </>
 }
 
 export default Archive

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const search = 'src/assets/images/search.png'
-const cart = 'src/assets/images/cart.png'
-const user = 'src/assets/images/user.png'
+const search = '/src/assets/images/search.png'
+const cart = '/src/assets/images/cart.png'
+const user = '/src/assets/images/user.png'
 
 const Header = () => {
   return (

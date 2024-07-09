@@ -9,28 +9,28 @@ const headerStyles = 'capitalize border-b border-b-black'
 
 const mock = [
   {
-    id: 1,
+    _id: 1,
     name: 'a',
     email: 'a@a.com',
     isAdmin: false,
     createdAt: Date.now()
   },
   {
-    id: 2,
+    _id: 2,
     name: 'b',
     email: 'b@b.com',
     isAdmin: true,
     createdAt: Date.now()
   },
   {
-    id: 3,
+    _id: 3,
     name: 'c',
     email: 'c@c.com',
     isAdmin: false,
     createdAt: Date.now()
   },
   {
-    id: 4,
+    _id: 4,
     name: 'd',
     email: 'd@d.com',
     isAdmin: true,
