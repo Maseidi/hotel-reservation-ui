@@ -4,11 +4,7 @@ import Input from './Input'
 import axios from 'axios'
 import Select from './Select'
 import Loading from './Loading'
-
-const validAuthSubmit =
-  'capitalize bg-submit text-primary rounded-lg p-2 hover:brightness-125 text-lg w-max self-end'
-const invalidAuthSubmit =
-  'capitalize bg-[gray] text-primary rounded-lg p-2 text-lg w-max self-end'
+import { INVALID_BTN, VALID_BTN } from '../../util/constant'
 
 const UpdateUser = () => {
   const { id } = useParams('id')
@@ -143,11 +139,11 @@ const UpdateUser = () => {
             options={['admin', 'user']}
           />
           {anythingEmpty() ? (
-            <button className={invalidAuthSubmit} disabled>
+            <button className={INVALID_BTN} disabled>
               submit
             </button>
           ) : (
-            <button className={validAuthSubmit} onClick={updateUser}>
+            <button className={VALID_BTN} onClick={updateUser}>
               submit
             </button>
           )}

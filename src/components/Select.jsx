@@ -1,7 +1,7 @@
 import React from 'react'
 
 const inputStyle =
-  'text-lg p-3 text-s rounded-lg focus:outline-[lightblue] w-[32rem] bg-fourth text-primary capitalize'
+  'text-lg p-3 text-s w-[32rem] focus:outline-none bg-[white] border border-fourth'
 
 const Select = (params) => {
   const { label, value, change, name, error, values, options } = params

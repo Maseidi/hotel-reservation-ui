@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import Signup from '../components/Signup'
 import Signin from '../components/Signin'
-import Background from '../components/Background'
 
 const authBtn =
-  'p-2 text-lg rounded-tr-md rounded-tl-md capitalize duration-300 font-bold'
-const disable = 'text-primary bg-fourth'
-const active = 'text-fourth bg-primary hover:bg-tertiary hover:text-fourth'
+  'p-2 text-lg capitalize duration-300 font-bold border-r border-l border-t border-black'
+const disable = 'text-white bg-black'
+const active = 'text-black bg-white hover:bg-black hover:text-white'
 
 const Auth = () => {
   const [signup, setSignup] = useState(false)
@@ -16,7 +15,6 @@ const Auth = () => {
   return (
     <>
       <div>
-        <Background />
         <div className="p-2 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-row gap-2">
             {signup ? (

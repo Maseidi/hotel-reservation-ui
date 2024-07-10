@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import Input from './Input'
 import axios from 'axios'
-
-const validAuthSubmit =
-  'capitalize bg-submit text-primary rounded-lg p-2 hover:brightness-125 text-lg w-max self-end'
-const invalidAuthSubmit =
-  'capitalize bg-[gray] text-primary rounded-lg p-2 text-lg w-max self-end'
+import { INVALID_BTN, VALID_BTN } from '../../util/constant'
 
 const Signin = () => {
   const [signinCmd, setSigninCmd] = useState({
@@ -44,7 +40,7 @@ const Signin = () => {
   const anythingEmpty = () => signinCmd.email == '' || signinCmd.password == ''
 
   return (
-    <div className="p-8 bg-primary rounded-bl-md rounded-tr-md rounded-br-md flex flex-col gap-5">
+    <div className="p-8 bg-primary border border-black flex flex-col gap-5">
       <Input
         label={'email'}
         type={'email'}
@@ -62,11 +58,11 @@ const Signin = () => {
         error={errors['password']}
       />
       {anythingEmpty() ? (
-        <button className={invalidAuthSubmit} disabled>
+        <button className={INVALID_BTN} disabled>
           signin
         </button>
       ) : (
-        <button className={validAuthSubmit} onClick={signin}>
+        <button className={VALID_BTN} onClick={signin}>
           signin
         </button>
       )}

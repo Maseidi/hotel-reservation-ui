@@ -3,11 +3,7 @@ import Input from './Input'
 import axios from 'axios'
 import Loading from './Loading'
 import Select from './Select'
-
-const validAuthSubmit =
-  'capitalize bg-submit text-primary rounded-lg p-2 hover:brightness-125 text-lg w-max self-end'
-const invalidAuthSubmit =
-  'capitalize bg-[gray] text-primary rounded-lg p-2 text-lg w-max self-end'
+import { INVALID_BTN, VALID_BTN } from '../../util/constant'
 
 const SubmitProduct = () => {
   const [storeProductCmd, setStoreProductCmd] = useState({
@@ -125,11 +121,11 @@ const SubmitProduct = () => {
             error={errors['file']}
           />
           {anythingEmpty() ? (
-            <button className={invalidAuthSubmit} disabled>
+            <button className={INVALID_BTN} disabled>
               submit
             </button>
           ) : (
-            <button className={validAuthSubmit} onClick={storeUser}>
+            <button className={VALID_BTN} onClick={storeUser}>
               submit
             </button>
           )}

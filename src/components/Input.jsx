@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 
 const inputStyle =
-  'text-lg p-3 text-s rounded-lg focus:outline-[lightblue] w-[32rem] bg-fourth text-primary'
+  'text-lg p-3 text-s w-[32rem] focus:outline-none bg-[white] border border-fourth'
 
 const Input = forwardRef(function Input(params, ref) {
   const {

@@ -12,20 +12,20 @@ const Header = () => {
         <h1 className="font-bold text-4xl capitalize">miHotels</h1>
         <div className="flex h-full gap-8">
           <div className="flex gap-8 items-center h-full">
-            <nav className="h-full flex gap-8 items-center capitalize">
+            <nav className="h-full flex gap-8 capitalize">
               <ul className="hover:border-b border-b-black">
                 <li>
-                  <Link to={'/hotels'}>shop</Link>
+                  <Link to={'/archive'}>shop</Link>
                 </li>
               </ul>
               <ul className="hover:border-b border-b-black">
                 <li>
-                  <Link to={'/hotels'}>blog</Link>
+                  <Link to={'/archive'}>blog</Link>
                 </li>
               </ul>
               <ul className="hover:border-b border-b-black">
                 <li>
-                  <Link to={'/hotels'}>our story</Link>
+                  <Link to={'/archive'}>our story</Link>
                 </li>
               </ul>
             </nav>
