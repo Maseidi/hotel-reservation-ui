@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { formatDate } from '../../util/helper'
 import Loading from './Loading'
+import Reservations from './Reservations'
 
 const UserDetails = () => {
   const { id } = useParams('id')
   const [user, setUser] = useState({})
+  const [reservations, setReservations] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -17,7 +19,10 @@ const UserDetails = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
-      .then((res) => setUser(res.data))
+      .then((res) => {
+        setUser(res.data.user)
+        setReservations(res.data.reservations)
+      })
       .catch((err) =>
         setUser({
           name: 'test',
@@ -50,6 +55,7 @@ const UserDetails = () => {
           {/* <span className="capitalize font-bold">last modified</span> */}
           {/* <span>{formatDate(user.updatedAt)}</span> */}
         </div>
+        <Reservations reservations={reservations} />
       </div>
     </>
   )

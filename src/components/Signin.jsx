@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Input from './Input'
 import axios from 'axios'
 import { INVALID_BTN, VALID_BTN } from '../../util/constant'
+import { useNavigate } from 'react-router-dom'
 
 const Signin = () => {
   const [signinCmd, setSigninCmd] = useState({
@@ -9,6 +10,7 @@ const Signin = () => {
     password: ''
   })
   const [errors, setErrors] = useState({})
+  const { navigate } = useNavigate()
   
   const changeValue = (e, name) => {
     setSigninCmd({
@@ -22,7 +24,7 @@ const Signin = () => {
       .post(process.env.URL + '/auth/login', signinCmd)
       .then((res) => {
         localStorage.setItem('token', res.data.token)
-        setErrors({})
+        document.location.href = 'http://localhost:5173/archive'
       })
       .catch((err) => {
         if (err.response.status != 419) {
@@ -40,7 +42,7 @@ const Signin = () => {
   const anythingEmpty = () => signinCmd.email == '' || signinCmd.password == ''
 
   return (
-    <div className="p-8 bg-primary border border-black flex flex-col gap-5">
+    <div className="p-8 border border-black flex flex-col gap-5">
       <Input
         label={'email'}
         type={'email'}

@@ -1,34 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Autocomplete, Button, Slider, TextField } from '@mui/material'
 import { DatePicker } from '@mui/x-date-pickers'
+import axios from 'axios'
 
 const search = '/src/assets/images/search.png'
-
-const products = [
-  { slug: 'a', img: '/src/assets/images/h1.jpg', title: 'test1', price: 100 },
-  { slug: 'b', img: '/src/assets/images/h2.jpg', title: 'test2', price: 200 },
-  { slug: 'c', img: '/src/assets/images/h3.jpg', title: 'test3', price: 200 },
-  { slug: 'd', img: '/src/assets/images/h4.jpg', title: 'test4', price: 300 },
-  { slug: 'e', img: '/src/assets/images/h5.jpg', title: 'test5', price: 1000 },
-  { slug: 'f', img: '/src/assets/images/h6.jpg', title: 'test6', price: 2000 },
-  { slug: 'g', img: '/src/assets/images/h7.jpg', title: 'test7', price: 3500 }
-]
 
 const typeOptions = [
   {
     id: 1,
-    type: 1,
     title: '1 room'
   },
   {
     id: 2,
-    type: 2,
-    title: '2 rooms'
+    title: '2 room'
   },
   {
     id: 1,
-    type: 3,
-    title: '3 rooms'
+    title: '3 room'
   }
 ]
 
@@ -36,9 +24,15 @@ const SearchProductMetrics = (params) => {
   const { setProducts } = params
   const [searchCmd, setSearchCmd] = useState({
     title: '',
-    type: null,
-    price: [0, 10000],
-    date: null
+    kind: '',
+    price: {
+      startPrice: 0,
+      endPrice: 10000
+    },
+    date: {
+      startDate: 0,
+      endDate: Date.now()
+    }
   })
 
   const handleTitleChange = (e) => {
@@ -52,36 +46,61 @@ const SearchProductMetrics = (params) => {
     if (reason == 'clear') {
       setSearchCmd({
         ...searchCmd,
-        type: null
+        kind: ''
       })
       return
     }
     setSearchCmd({
       ...searchCmd,
-      type: value.type
+      kind: value.title
     })
   }
 
   const handlePriceChange = (e, value) => {
     setSearchCmd({
       ...searchCmd,
-      price: [value[0], value[1]]
+      price: {
+        startPrice: value[0],
+        endPrice: value[1]
+      }
     })
   }
 
-  const handleDateChange = (e, value) => {
+  const handleStartDateChange = (value) => {
     setSearchCmd({
       ...searchCmd,
-      date: value
+      date: {
+        ...searchCmd.date,
+        startDate: new Date(value.$d).getTime()
+      }
+    })
+  }
+
+  const handleEndDateChange = (value) => {
+    setSearchCmd({
+      ...searchCmd,
+      date: {
+        ...searchCmd.date,
+        endDate: new Date(value.$d).getTime()
+      }
     })
   }
 
   const getData = () => {
-    setProducts(products)
+    axios
+      .post(process.env.URL + '/products/search', searchCmd)
+      .then((res) => {
+        setProducts(res.data)
+      })
+      .catch((err) => console.log(err))
   }
 
+  useEffect(() => {
+    getData()
+  }, [])
+
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 pb-8">
       <h1 className="capitalize text-3xl">shop the latest</h1>
       <div className="flex border-b pb-4 items-center justify-between">
         <input
@@ -103,17 +122,23 @@ const SearchProductMetrics = (params) => {
         min={0}
         max={10000}
         getAriaLabel={() => 'Minimum distance shift'}
-        value={searchCmd.price}
+        value={[searchCmd.price.startPrice, searchCmd.price.endPrice]}
         onChange={handlePriceChange}
         valueLabelDisplay="off"
         disableSwap
-        sx={{color: 'black'}}
+        sx={{ color: 'black' }}
       />
       <p className="capitalize">
-        price: ${searchCmd.price[0]} - ${searchCmd.price[1]}
+        price: ${searchCmd.price.startPrice} - ${searchCmd.price.endPrice}
       </p>
-      <DatePicker label="Choose date" onChange={handleDateChange} />
-      <Button onClick={getData} sx={{border: '1px solid black', color: 'black'}}>filter</Button>
+      <DatePicker label="From" onChange={handleStartDateChange} />
+      <DatePicker label="Due" onChange={handleEndDateChange} />
+      <Button
+        onClick={getData}
+        sx={{ border: '1px solid black', color: 'black' }}
+      >
+        filter
+      </Button>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { formatDate } from '../../util/helper'
 import Loading from './Loading'
+import Reservations from './Reservations'
 
 const ProductDetails = () => {
   const { id } = useParams('id')
@@ -53,52 +54,33 @@ const ProductDetails = () => {
   return (
     <>
       {loading && <Loading />}
-      <div className="m-10 flex flex-col gap-8">
-        <h1 className="capitalize text-3xl font-bold">product details</h1>
-        <div className="grid grid-cols-2 h-max justify-between w-[50rem] gap-8">
-          <span className="capitalize font-bold">title</span>
-          <span>{product.title}</span>
-          <span className="capitalize font-bold">slug</span>
-          <span>{product.slug}</span>
-          <span className="capitalize font-bold">description</span>
-          <span className="w-[40ch]">{product.description}</span>
-          <span className="capitalize font-bold">price</span>
-          <span>{product.price}$</span>
-          <span className="capitalize font-bold">code</span>
-          <span>{product.code}</span>
-          <span className="capitalize font-bold">created</span>
-          <span>{formatDate(product.createdAt)}</span>
-          <span className="capitalize font-bold">last modified</span>
-          <span>{formatDate(product.updatedAt)}</span>
-        </div>
-        <div>
-          <h1 className="font-bold text-3xl my-10">Reservations</h1>
-          <div className="grid grid-cols-7 gap-10">
-            <div className="capitalize">price</div>
-            <div className="capitalize">track id</div>
-            <div className="capitalize">status</div>
-            <div className="capitalize">start date</div>
-            <div className="capitalize">end date</div>
-            <div className="capitalize">created at</div>
-            <div className="capitalize">updated at</div>
-            {reservations.map((elem) => {
-              return (
-                <>
-                  <div>{elem.price}</div>
-                  <div>{elem.trackId}</div>
-                  <div>{elem.status}</div>
-                  <div>
-                    {formatDate(elem.date.startDate)}
-                  </div>
-                  <div>
-                    {formatDate(elem.date.endDate)}
-                  </div>
-                  <div>{formatDate(elem.createdAt)}</div>
-                  <div>{formatDate(elem.updatedAt)}</div>
-                </>
-              )
-            })}
+      <div className="m-10 flex gap-10">
+        <div className="flex flex-col gap-8">
+          <h1 className="capitalize text-3xl font-bold">product details</h1>
+          <div className="grid grid-cols-2 h-max justify-between w-[50rem] gap-8">
+            <span className="capitalize font-bold">title</span>
+            <span>{product.title}</span>
+            <span className="capitalize font-bold">slug</span>
+            <span>{product.slug}</span>
+            <span className="capitalize font-bold">description</span>
+            <span className="w-[40ch]">{product.description}</span>
+            <span className="capitalize font-bold">price</span>
+            <span>{product.price}$</span>
+            <span className="capitalize font-bold">code</span>
+            <span>{product.code}</span>
+            <span className="capitalize font-bold">created</span>
+            <span>{formatDate(product.createdAt)}</span>
+            <span className="capitalize font-bold">last modified</span>
+            <span>{formatDate(product.updatedAt)}</span>
           </div>
+          <Reservations reservations={reservations} type='products'/>
+        </div>
+        <div className="w-96">
+          <img
+            src={product?.imageUrl?.replace('public', process.env.Domain)}
+            alt={product.title}
+            className="w-full"
+          />
         </div>
       </div>
     </>

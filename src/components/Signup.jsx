@@ -46,7 +46,7 @@ const Signup = () => {
     signupCmd.password_confirmation == ''
 
   return (
-    <div className="p-8 bg-primary border border-black flex flex-col gap-5">
+    <div className="p-8 border border-black flex flex-col gap-5">
       <Input
         label={'username'}
         type={'text'}

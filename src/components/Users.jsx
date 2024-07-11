@@ -86,7 +86,6 @@ const Users = () => {
         }
       })
       .then((res) => {
-        console.log(res)
         setId2Delete(null)
         getData()
       })

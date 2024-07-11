@@ -28,7 +28,7 @@ const SubmitProduct = () => {
   const storeUser = () => {
     setLoading(true)
     file.append('title', storeProductCmd.title)
-    file.append('price', storeProductCmd.description)
+    file.append('price', storeProductCmd.price)
     file.append('slug', storeProductCmd.slug)
     file.append('kind', storeProductCmd.kind)
     file.append('description', storeProductCmd.description)

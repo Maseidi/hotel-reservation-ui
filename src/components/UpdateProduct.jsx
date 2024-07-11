@@ -29,10 +29,10 @@ const UpdateProduct = () => {
       })
       .then((res) =>
         setUpdateProductCmd({
-          title: res.data.title,
-          slug: res.data.slug,
-          description: res.data.description,
-          price: res.data.price
+          title: res.data.product.title,
+          slug: res.data.product.slug,
+          description: res.data.product.description,
+          price: res.data.product.price
         })
       )
       .catch((err) =>

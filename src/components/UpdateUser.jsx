@@ -29,11 +29,11 @@ const UpdateUser = () => {
       })
       .then((res) => {
         setUpdateUserCmd({
-          name: res.data.name,
-          email: res.data.email,
-          password: res.data.password,
-          age: res.data.age,
-          isAdmin: res.data.isAdmin
+          name: res.data.user.name,
+          email: res.data.user.email,
+          password: res.data.user.password,
+          age: res.data.user.age,
+          isAdmin: res.data.user.isAdmin
         })
       })
       .catch((err) =>
@@ -119,24 +119,6 @@ const UpdateUser = () => {
             change={changeValue}
             name={'password_confirmation'}
             error={errors['password_confirmation']}
-          />
-          <Input
-            label={'age'}
-            value={updateUserCmd.age}
-            type={'number'}
-            placeholder={'age'}
-            change={changeValue}
-            name={'age'}
-            error={errors['age']}
-          />
-          <Select
-            label={'role'}
-            value={updateUserCmd.isAdmin}
-            change={changeValue}
-            name={'isAdmin'}
-            error={errors['isAdmin']}
-            values={[true, false]}
-            options={['admin', 'user']}
           />
           {anythingEmpty() ? (
             <button className={INVALID_BTN} disabled>
